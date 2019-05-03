@@ -1,9 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
+import MainScreen from './js/app/mainScreen'
 
 window.React = React
 
 render(
-	'Hello, world',
+	<MainScreen />,
 	document.getElementById('react-container')
 )
