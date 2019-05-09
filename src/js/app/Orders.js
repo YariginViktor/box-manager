@@ -9,24 +9,41 @@ class Orders extends Component {
 		this.state = {
 			box: []
 		}
+		this.removeOrder = this.removeOrder.bind(this)
+		this.updateOrders = this.updateOrders.bind(this)
 	}
 
 	componentDidMount(){
+		this.updateOrders()
+	}
+
+	updateOrders(){
 		axios.get('http://127.0.0.1:8090/orders')
-		  .then((response) =>
+		.then((response) =>
 		    this.setState({
 		    	box: response.data
 		    })
-		  )
-		  .catch((error) =>
+		)
+		.catch((error) =>
 		    console.log(error)
-		  )
+		)
+	}
+
+	removeOrder(e){
+		axios.delete('http://127.0.0.1:8090/orders/_id', { params: { id: e.target.id } })
+		.then(response =>
+			this.updateOrders()
+		)
+		.catch(error =>
+			console.log(error)
+		)
 	}
 
 	render() {
 		return (
-			<div className="bm-main-root" >
-				<OrderList list={this.state.box} />
+			<div className="bm-main-order-list" >
+				<h1>Список заказов</h1>
+				<OrderList list={this.state.box} removeOrder={this.removeOrder} />
 			</div>
 		)
 	}

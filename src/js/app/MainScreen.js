@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { createStore } from 'redux'
 import { View } from '../fw/reducers'
 import Navigation from './Navigation'
+import '../../styles/main.css'
 
 const store = createStore(View)
 

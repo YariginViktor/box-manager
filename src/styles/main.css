@@ -1,0 +1,68 @@
+body{
+	background: #cccccc;
+	font-family: 'Arial';
+	padding: 0;
+	margin: 0;
+}
+.bm-main-root{
+	max-width: 500px;
+	margin: 0 auto;
+	background: #fff;
+	padding: 20px;
+	box-sizing: border-box;
+	position: relative;
+	padding-bottom: 70px;
+	overflow: hidden;
+}
+.bm-order-list{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.bm-order-list li{
+	padding: 20px;
+	position: relative;
+	display: block;
+    border: 1px solid;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+.bm-order-list-title{
+	font-size: 20px;
+	font-weight: bold;
+    line-height: 20px;
+}
+.bm-OrderManager h1{
+	text-align: center;
+}
+.bm-OrderManager div{
+	margin-bottom: 15px;
+}
+.bm-OrderManager span{
+    width: 180px;
+    display: inline-block;
+}
+.bm-navigation{
+	position: fixed;
+    max-width: 500px;
+    bottom: 0;
+    line-height: 20px;
+    padding: 25px;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    box-sizing: border-box;
+    box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);
+    background: #fff;
+}
+.bm-navigation span{
+	display: inline-block;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.bm-order-list-del{
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	cursor: pointer;
+}

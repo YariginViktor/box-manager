@@ -17,7 +17,7 @@ var app = express()
 app.use( bodyParser.json() )
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Wellcome to Box-manager!');
 });
 
 app.get('/orders', (req, res) => {
@@ -29,6 +29,11 @@ app.get('/orders', (req, res) => {
 app.post('/orders', (req, res) => {
 	const order = new Order(req.body)
 	order.save().then(data => res.send(data))
+});
+
+app.delete('/orders/_id', (req, res) => {
+	console.log(req)
+	Order.deleteOne({_id: req.query.id}).then(data => res.send(data))
 });
 
 app.listen(8090, function () {
