@@ -1,9 +1,9 @@
-import CreateOrder from '../CreateOrder'
+import OrderManager from '../OrderManager'
 import Orders from '../Orders'
 
 
 const interfaces = {
-	CreateOrder: CreateOrder,
+	OrderManager: OrderManager,
 	Orders: Orders
 }
 

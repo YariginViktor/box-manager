@@ -5,7 +5,8 @@ export const View = (state={}, action) => {
 	switch(action.type) {
 		case C.CHANGE_VIEW:
 			return {
-				view: interfaces[action.view]
+				view: interfaces[action.view],
+				currentView: action.view
 			}
 
 		default:

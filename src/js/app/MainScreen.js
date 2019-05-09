@@ -5,8 +5,6 @@ import Navigation from './Navigation'
 
 const store = createStore(View)
 
-console.log(store.getState())
-
 class MainScreen extends Component {
 
 	constructor(props) {
@@ -15,34 +13,20 @@ class MainScreen extends Component {
 			type: 'CHANGE_VIEW',
 			view: 'Orders'
 		})
-		this.state = {
-			view: store.getState().view
-		}
-		this.createOrder = this.createOrder.bind(this)
+		this.state = store.getState()
 	}
 
 	componentWillMount() {
-
-		store.subscribe(() =>
-			this.setState({
-		    	view: store.getState().view
-		    })
+		store.subscribe(() => 
+			this.setState(store.getState())
 		)
-	}
-
-	createOrder() {
-		console.log('New order')
-		store.dispatch({
-			type: 'CHANGE_VIEW',
-			view: 'CreateOrder'
-		})
 	}
 
 	render() {
 		return (
 			<div className="bm-main-root" >
 				<this.state.view />
-				<Navigation newOrder={this.createOrder} />
+				<Navigation store={store} currentView={this.state.currentView} />
 			</div>
 		)
 	}
