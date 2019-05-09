@@ -1,32 +1,27 @@
 import { Component } from 'react'
-import OrderList from './OrderList'
-import axios from 'axios'
+import interfaces from './views/interfaces'
 
 class MainScreen extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			box: []
+			view: interfaces['Orders']
 		}
 	}
 
 	componentDidMount(){
-		axios.get('http://127.0.0.1:8090/boxes')
-		  .then((response) =>
+		setTimeout(() => {
 		    this.setState({
-		    	box: response.data
+		    	view: interfaces['CreateOrder']
 		    })
-		  )
-		  .catch((error) =>
-		    console.log(error)
-		  )
+		}, 2000)
 	}
 
 	render() {
 		return (
 			<div className="bm-main-root" >
-				<OrderList list={this.state.box} />
+				< this.state.view />
 			</div>
 		)
 	}

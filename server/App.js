@@ -3,8 +3,13 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var Schema = mongoose.Schema
 
-var c = mongoose.model('boxes', new Schema({
-	title: { type: String }
+var c = mongoose.model('orders', new Schema({
+	title: { type: String },
+	user: { type: String },
+	boxes: { type: Array },
+	phone: { type: Number },
+	date: { type: Date },
+	created: { type: Date }
 }))
 
 var app = express()
@@ -15,7 +20,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.get('/boxes', (req, res) => {
+app.get('/orders', (req, res) => {
   c.find((e, r) =>
   		res.send(r)
   	)
