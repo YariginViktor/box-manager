@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 var Schema = mongoose.Schema
 
-var c = mongoose.model('orders', new Schema({
+var Order = mongoose.model('orders', new Schema({
 	title: { type: String },
 	user: { type: String },
 	boxes: { type: Array },
@@ -21,9 +21,14 @@ app.get('/', function (req, res) {
 });
 
 app.get('/orders', (req, res) => {
-  c.find((e, r) =>
+  Order.find((e, r) =>
   		res.send(r)
   	)
+});
+
+app.post('/orders', (req, res) => {
+	const order = new Order(req.body)
+	order.save().then(data => res.send(data))
 });
 
 app.listen(8090, function () {
