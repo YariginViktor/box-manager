@@ -9,6 +9,14 @@ export const View = (state={}, action) => {
 				currentView: action.view
 			}
 
+		case C.EDIT_ORDER:
+			return {
+				view: interfaces[action.view],
+				currentView: action.view,
+				edit: true,
+				id: action.id
+			}
+
 		default:
 			return state
 	}

@@ -12,9 +12,17 @@ class Navigation extends Component {
 		this.newOrder = this.newOrder.bind(this)
 		this.orders = this.orders.bind(this)
 		this.navItems  = [
-			{name: 'OrderManager', val: <span onClick={this.newOrder}> Новая заявка </span>},
-			{name: 'Orders', val: <span onClick={this.orders}> Список заявок </span>}
+			{name: 'OrderManager', val: <span onClick={this.newOrder}> Новый заказ </span>},
+			{name: 'Orders', val: <span onClick={this.orders}> Список заказов </span>}
 		]
+	}
+
+	componentWillMount(){
+		this.state.store.subscribe(() => {
+			this.setState({
+				currentView: this.state.store.getState().currentView
+			})
+		})
 	}
 
 	changeView(viewName){

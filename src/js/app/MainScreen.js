@@ -26,7 +26,7 @@ class MainScreen extends Component {
 	render() {
 		return (
 			<div className="bm-main-root" >
-				<this.state.view />
+				<this.state.view store={store} />
 				<Navigation store={store} currentView={this.state.currentView} />
 			</div>
 		)

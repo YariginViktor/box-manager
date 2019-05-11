@@ -1,18 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+
 body{
 	background: #cccccc;
-	font-family: 'Arial';
+	font-family: 'Roboto', sans-serif;
 	padding: 0;
 	margin: 0;
 }
+h1{
+	text-align: center;
+	margin: 0 0 20px 0;
+}
 .bm-main-root{
 	max-width: 500px;
-	margin: 0 auto;
-	background: #fff;
-	padding: 20px;
+	background: #ececec;
+	padding: 5px;
 	box-sizing: border-box;
 	position: relative;
 	padding-bottom: 70px;
 	overflow: hidden;
+    min-height: 100vh;
+}
+.bm-main-order-list{
+	text-align: center;
+    padding: 15px; 
+	background: #fff;
 }
 .bm-order-list{
 	list-style: none;
@@ -20,23 +33,32 @@ body{
 	margin: 0;
 }
 .bm-order-list li{
-	padding: 20px;
-	position: relative;
-	display: block;
+    padding: 10px 30px;
+    position: relative;
+    display: block;
     border: 1px solid;
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: left;
 }
 .bm-order-list-title{
 	font-size: 20px;
 	font-weight: bold;
     line-height: 20px;
 }
-.bm-OrderManager h1{
-	text-align: center;
+.bm-OrderManager{
+    padding: 15px;
+    padding-bottom: 40px;
+	background: #fff;
+	position: relative;
 }
 .bm-OrderManager div{
 	margin-bottom: 15px;
+}
+.bm-OrderManager-status{
+    position: absolute;
+    bottom: 0px;
+    left: auto;
 }
 .bm-OrderManager span{
     width: 180px;
@@ -49,8 +71,7 @@ body{
     line-height: 20px;
     padding: 25px;
     width: 100%;
-    left: 50%;
-    transform: translate(-50%, 0%);
+    left: 0;
     box-sizing: border-box;
     box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);
     background: #fff;
@@ -64,5 +85,11 @@ body{
 	position: absolute;
 	bottom: 10px;
 	right: 10px;
+	cursor: pointer;
+}
+.bm-order-list-edit{
+	position: absolute;
+	bottom: 10px;
+	right: 90px;
 	cursor: pointer;
 }

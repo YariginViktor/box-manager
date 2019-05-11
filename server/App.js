@@ -7,7 +7,7 @@ var Order = mongoose.model('orders', new Schema({
 	title: { type: String },
 	user: { type: String },
 	boxes: { type: Array },
-	phone: { type: Number },
+	phone: { type: String },
 	date: { type: Date },
 	created: { type: Date }
 }))
@@ -26,13 +26,20 @@ app.get('/orders', (req, res) => {
   	)
 });
 
+app.get('/orders/find', (req, res) => {
+	Order.find({_id: req.query.id}).then(data => res.send(data))
+});
+
+app.put('/orders/save', (req, res) => {
+	Order.findOneAndUpdate({_id: req.body.id}, req.body).then(data => res.send(data))
+});
+
 app.post('/orders', (req, res) => {
 	const order = new Order(req.body)
 	order.save().then(data => res.send(data))
 });
 
 app.delete('/orders/_id', (req, res) => {
-	console.log(req)
 	Order.deleteOne({_id: req.query.id}).then(data => res.send(data))
 });
 
