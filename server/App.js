@@ -13,8 +13,15 @@ var Order = mongoose.model('orders', new Schema({
 }))
 
 var Box = mongoose.model('boxes', new Schema({
-	title: { type: String },
 	ico: { type: String },
+	title: { type: String },
+	descr: { type: String },
+	price: { type: String }
+}))
+
+var Product = mongoose.model('products', new Schema({
+	ico: { type: String },
+	title: { type: String },
 	descr: { type: String },
 	price: { type: String }
 }))
@@ -76,7 +83,30 @@ app.delete('/boxes/_id', (req, res) => {
 	Box.deleteOne({_id: req.query.id}).then(data => res.send(data))
 });
 
+// PRODUCTS
 
+app.get('/products', (req, res) => {
+  Product.find((e, r) =>
+  		res.send(r)
+  	)
+});
+
+app.get('/products/find', (req, res) => {
+	Product.find({_id: req.query.id}).then(data => res.send(data))
+});
+
+app.put('/products/save', (req, res) => {
+	Product.findOneAndUpdate({_id: req.body.id}, req.body).then(data => res.send(data))
+});
+
+app.post('/products', (req, res) => {
+	const product = new Product(req.body)
+	product.save().then(data => res.send(data))
+});
+
+app.delete('/products/_id', (req, res) => {
+	Product.deleteOne({_id: req.query.id}).then(data => res.send(data))
+});
 
 app.listen(8090, function () {
 	console.log('Example app listening on port 8090!');
