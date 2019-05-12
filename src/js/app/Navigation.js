@@ -9,11 +9,12 @@ class Navigation extends Component {
 			store: this.props.store,
 			currentView: this.props.currentView
 		}
-		this.newOrder = this.newOrder.bind(this)
-		this.orders = this.orders.bind(this)
+		this.changeView = this.changeView.bind(this)
 		this.navItems  = [
-			{name: 'OrderManager', val: <span onClick={this.newOrder}> Новый заказ </span>},
-			{name: 'Orders', val: <span onClick={this.orders}> Список заказов </span>}
+			{name: 'OrderManager', val: <button onClick={this.changeView} value="OrderManager"> Новый заказ </button>},
+			{name: 'BoxManager', val: <button onClick={this.changeView} value="BoxManager"> Новый набор </button>},
+			{name: 'Orders', val: <button onClick={this.changeView} value="Orders"> Список заказов </button>},
+			{name: 'Boxes', val: <button onClick={this.changeView} value="Boxes"> Список наборов </button>}
 		]
 	}
 
@@ -25,22 +26,14 @@ class Navigation extends Component {
 		})
 	}
 
-	changeView(viewName){
+	changeView(e){
 		this.state.store.dispatch({
 			type: 'CHANGE_VIEW',
-			view: viewName
+			view: e.currentTarget.value
 		})
 		this.setState({
-			currentView: viewName
+			currentView: e.currentTarget.value
 		})
-	}
-
-	newOrder(){
-		this.changeView('OrderManager')
-	}
-
-	orders(){
-		this.changeView('Orders')
 	}
 
 	render() {

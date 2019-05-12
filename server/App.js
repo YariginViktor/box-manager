@@ -12,10 +12,18 @@ var Order = mongoose.model('orders', new Schema({
 	created: { type: Date }
 }))
 
+var Box = mongoose.model('boxes', new Schema({
+	title: { type: String },
+	ico: { type: String },
+	descr: { type: String },
+	price: { type: String }
+}))
+
 var app = express()
 
 app.use( bodyParser.json() )
 
+// ORDERS
 app.get('/', function (req, res) {
   res.send('Wellcome to Box-manager!');
 });
@@ -42,6 +50,33 @@ app.post('/orders', (req, res) => {
 app.delete('/orders/_id', (req, res) => {
 	Order.deleteOne({_id: req.query.id}).then(data => res.send(data))
 });
+
+// BOXES
+
+app.get('/boxes', (req, res) => {
+  Box.find((e, r) =>
+  		res.send(r)
+  	)
+});
+
+app.get('/boxes/find', (req, res) => {
+	Box.find({_id: req.query.id}).then(data => res.send(data))
+});
+
+app.put('/boxes/save', (req, res) => {
+	Box.findOneAndUpdate({_id: req.body.id}, req.body).then(data => res.send(data))
+});
+
+app.post('/boxes', (req, res) => {
+	const box = new Box(req.body)
+	box.save().then(data => res.send(data))
+});
+
+app.delete('/boxes/_id', (req, res) => {
+	Box.deleteOne({_id: req.query.id}).then(data => res.send(data))
+});
+
+
 
 app.listen(8090, function () {
 	console.log('Example app listening on port 8090!');

@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import axios from 'axios'
-import settings from '../fw/settings'
+import settings from '../../fw/settings'
 
 class OrderManager extends Component {
 
@@ -104,7 +104,7 @@ class OrderManager extends Component {
 
 	render(){
 		return(
-			<form onSubmit={this.onSubmit} className="bm-OrderManager">
+			<form onSubmit={this.onSubmit} className="bm-form">
 				<h1>{ this.state.edit ? 'Редактирование заказа' : 'Новый заказ'}</h1>
 				<div><span>Название заказа</span><input type="text" name="title" placeholder="" defaultValue={this.state.edit ? this.state.order.title : '' }/></div>
 				<div><span>Имя заказчика</span><input type="text" name="User" placeholder="" defaultValue={this.state.edit ? this.state.order.user : '' }/></div>
@@ -113,7 +113,7 @@ class OrderManager extends Component {
 				<button>
 					{this.state.edit ? 'Сохранить' : 'Создать заказ'}
 				</button>
-				<div className="bm-OrderManager-status">
+				<div className="bm-form-status">
 					{ this.state.wait ? '' : (this.state.error ? 'При обработке запроса возникла ошибка' : 'Заказ успешно сохранен')}
 				</div>
 			</form>

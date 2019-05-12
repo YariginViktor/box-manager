@@ -17,6 +17,15 @@ export const View = (state={}, action) => {
 				id: action.id
 			}
 
+		case C.EDIT_BOX:
+			return {
+				view: interfaces[action.view],
+				currentView: action.view,
+				edit: true,
+				id: action.id
+			}
+
+
 		default:
 			return state
 	}

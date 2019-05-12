@@ -1,14 +1,14 @@
 import { Component } from 'react'
 import OrderList from './OrderList'
 import axios from 'axios'
-import settings from '../fw/settings'
+import settings from '../../fw/settings'
 
 class Orders extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			box: [],
+			orders: [],
 			store: this.props.store
 		}
 		this.removeOrder = this.removeOrder.bind(this)
@@ -24,7 +24,7 @@ class Orders extends Component {
 		axios.get(settings.server.URL + '/orders')
 		.then((response) =>
 		    this.setState({
-		    	box: response.data
+		    	orders: response.data
 		    })
 		)
 		.catch((error) =>
@@ -52,9 +52,9 @@ class Orders extends Component {
 
 	render() {
 		return (
-			<div className="bm-main-order-list" >
-				<h1>{ this.state.box.length ? 'Список заказов' : 'Нет заказов' }</h1>
-				<OrderList list={this.state.box} removeOrder={this.removeOrder} editOrder={this.editOrder} />
+			<div className="bm-list-root" >
+				<h1>{ this.state.orders.length ? 'Список заказов' : 'Нет заказов' }</h1>
+				<OrderList list={this.state.orders} removeOrder={this.removeOrder} editOrder={this.editOrder} />
 			</div>
 		)
 	}
