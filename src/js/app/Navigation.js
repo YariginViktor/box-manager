@@ -11,9 +11,6 @@ class Navigation extends Component {
 		}
 		this.changeView = this.changeView.bind(this)
 		this.navItems  = [
-			{name: 'OrderManager', val: <button onClick={this.changeView} value="OrderManager"> Новый заказ </button>},
-			{name: 'BoxManager', val: <button onClick={this.changeView} value="BoxManager"> Новый набор </button>},
-			{name: 'ProductManager', val: <button onClick={this.changeView} value="ProductManager"> Новый продукт </button>},
 			{name: 'Orders', val: <button onClick={this.changeView} value="Orders"> Список заказов </button>},
 			{name: 'Boxes', val: <button onClick={this.changeView} value="Boxes"> Список наборов </button>},
 			{name: 'Products', val: <button onClick={this.changeView} value="Products"> Список продуктов </button>}

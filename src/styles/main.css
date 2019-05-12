@@ -81,10 +81,12 @@ h1{
     box-sizing: border-box;
     box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.3);
     background: #fff;
+    text-align: center;
 }
-.bm-navigation span{
+.bm-navigation button{
 	display: inline-block;
-    margin-right: 20px;
+	border-radius: 20px;
+    margin: 0 10px;
     cursor: pointer;
 }
 .bm-list-del{
@@ -98,4 +100,37 @@ h1{
 	bottom: 10px;
 	right: 90px;
 	cursor: pointer;
+}
+.bm-addForm-ico{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 29px;
+    height: 29px;
+    background: #fff;
+    box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    cursor: pointer;
+    border: 2px solid #cccccc;
+    box-sizing: border-box;
+}
+.bm-addForm-ico:before{
+    content: '';
+    display: block;
+    width: 14px;
+    height: 2px;
+    background: #cccccc;
+    position: absolute;
+    top: 11px;
+    left: 6px;
+}
+.bm-addForm-ico:after{
+    content: '';
+    display: block;
+    width: 2px;
+    height: 14px;
+    background: #cccccc;
+    position: absolute;
+    top: 5px;
+    left: 12px;
 }

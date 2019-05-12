@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import OrderList from './OrderList'
+import AddItem from '../AddItem'
 import axios from 'axios'
 import settings from '../../fw/settings'
 
@@ -14,6 +15,7 @@ class Orders extends Component {
 		this.removeOrder = this.removeOrder.bind(this)
 		this.updateOrders = this.updateOrders.bind(this)
 		this.editOrder = this.editOrder.bind(this)
+		this.openOrderManager = this.openOrderManager.bind(this)
 	}
 
 	componentDidMount(){
@@ -50,11 +52,19 @@ class Orders extends Component {
 		})
 	}
 
+	openOrderManager(){
+		this.state.store.dispatch({
+			type: 'CHANGE_VIEW',
+			view: 'OrderManager'
+		})
+	}
+
 	render() {
 		return (
 			<div className="bm-list-root" >
 				<h1>{ this.state.orders.length ? 'Список заказов' : 'Нет заказов' }</h1>
 				<OrderList list={this.state.orders} removeOrder={this.removeOrder} editOrder={this.editOrder} />
+				<AddItem openForm={this.openOrderManager}/>
 			</div>
 		)
 	}

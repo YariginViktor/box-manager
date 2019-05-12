@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import BoxesList from './BoxesList'
+import AddItem from '../AddItem'
 import axios from 'axios'
 import settings from '../../fw/settings'
 
@@ -16,7 +17,7 @@ class Boxes extends Component {
 		this.updateBoxes = this.updateBoxes.bind(this)
 		this.removeBox = this.removeBox.bind(this)
 		this.editBox = this.editBox.bind(this)
-
+		this.openBoxManager = this.openBoxManager.bind(this)
 
 	}
 
@@ -54,11 +55,19 @@ class Boxes extends Component {
 		})
 	}
 
+	openBoxManager(){
+		this.state.store.dispatch({
+			type: 'CHANGE_VIEW',
+			view: 'BoxManager'
+		})
+	}
+
 	render(){
 		return(
 			<div className="bm-list-root">
 				<h1>{ this.state.boxes.length ? 'Список наборов' : 'Нет наборов' }</h1>
 				<BoxesList list={this.state.boxes} removeBox={this.removeBox} editBox={this.editBox} />
+				<AddItem openForm={this.openBoxManager}/>
 			</div>
 		)
 	}
