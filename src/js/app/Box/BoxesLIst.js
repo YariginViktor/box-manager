@@ -1,5 +1,5 @@
 const Boxeslist = ({ list, removeBox, editBox }) =>
-	<ul className="bm-list">
+	<ul className="bm-list bm-list-products">
 		{list.map((item, i) => 
 			<li key={i}>
 				<div className="bm-list-ico" style={{backgroundImage: `url(${item.ico})`}}></div>

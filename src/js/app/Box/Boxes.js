@@ -11,7 +11,8 @@ class Boxes extends Component {
 
 		this.state = {
 			boxes: [],
-			store: this.props.store
+			store: this.props.store,
+			loading: true
 		}
 
 		this.updateBoxes = this.updateBoxes.bind(this)
@@ -29,7 +30,8 @@ class Boxes extends Component {
 		axios.get(settings.server.URL + '/boxes')
 		.then((response) =>
 		    this.setState({
-		    	boxes: response.data
+		    	boxes: response.data,
+		    	loading: false
 		    })
 		)
 		.catch((error) =>
@@ -40,7 +42,7 @@ class Boxes extends Component {
 	removeBox(e){
 		axios.delete(settings.server.URL + '/boxes/_id', { params: { id: e.target.id } })
 		.then(response =>
-			this.updateOrders()
+			this.updateBoxes()
 		)
 		.catch(error =>
 			console.log(error)
@@ -65,7 +67,7 @@ class Boxes extends Component {
 	render(){
 		return(
 			<div className="bm-list-root">
-				<h1>{ this.state.boxes.length ? 'Список наборов' : 'Нет наборов' }</h1>
+				<h1>{ this.state.loading ? '' : (this.state.boxes.length ? 'Список наборов' : 'Нет наборов') }</h1>
 				<BoxesList list={this.state.boxes} removeBox={this.removeBox} editBox={this.editBox} />
 				<AddItem openForm={this.openBoxManager}/>
 			</div>

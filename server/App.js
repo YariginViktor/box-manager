@@ -16,7 +16,8 @@ var Box = mongoose.model('boxes', new Schema({
 	ico: { type: String },
 	title: { type: String },
 	descr: { type: String },
-	price: { type: String }
+	price: { type: String },
+	products: { type: Array }
 }))
 
 var Product = mongoose.model('products', new Schema({
