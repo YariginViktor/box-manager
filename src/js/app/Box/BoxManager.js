@@ -1,8 +1,8 @@
 import { Component } from 'react'
 import axios from 'axios'
 import settings from '../../fw/settings'
-import BoxComposition from './BoxComposition'
-import BoxSelectProducts from './BoxSelectProducts'
+import CompositionList from '../CompositionList'
+import CompositionSelect from '../CompositionSelect'
 
 class BoxManager extends Component {
 
@@ -151,8 +151,8 @@ class BoxManager extends Component {
 	}
 
 	updateItemCount(obj, direction){
-		let prodId = obj.target.closest('.bm-form-product-list-item').id
-		let curCount = parseInt(obj.target.closest('.bm-form-product-list-item').getElementsByClassName('bm-form-product-list-count')[0].innerHTML)
+		let prodId = obj.target.closest('.bm-form-composition-list-item').id
+		let curCount = parseInt(obj.target.closest('.bm-form-composition-list-item').getElementsByClassName('bm-form-composition-list-count')[0].innerHTML)
 		let newCount = direction === 'up' ? ++curCount : (curCount === 0 ? 0 : --curCount)
 		this.state.box.products.forEach(item =>{
 			if (item.data._id === prodId) {item.value = newCount}
@@ -203,9 +203,9 @@ class BoxManager extends Component {
 				<div className="bm-form-item">
 					<div className="bm-form-item-title">Состав</div>
 					<div className="bm-form-item-data">
-						<div className="bm-form-product-list">
-							<div className="bm-form-product-list-amount">Итог: {this.state.box.amount} p.</div>
-							<BoxComposition items={this.state.box.products} upItemCount={this.upItemCount} downItemCount={this.downItemCount} />
+						<div className="bm-form-composition-list">
+							<div className="bm-form-composition-list-amount">Итог: {this.state.box.amount} p.</div>
+							<CompositionList items={this.state.box.products} upItemCount={this.upItemCount} downItemCount={this.downItemCount} />
 							<div>
 								<div className="bm-btn" onClick={this.showProductSelect}>Добавить</div>
 							</div>
@@ -215,9 +215,9 @@ class BoxManager extends Component {
 				<button>
 					{this.state.edit ? 'Сохранить' : 'Создать набор'}
 				</button>
-				<div className="bm-form-select-product-popup" style={{display: this.state.showProductSelect ? 'block' : 'none'}}>
-					<div className="bm-form-select-product-popup-wrapper">
-						<BoxSelectProducts items={this.state.products} addItem={this.addItem} />
+				<div className="bm-form-select-composition-popup" style={{display: this.state.showProductSelect ? 'block' : 'none'}}>
+					<div className="bm-form-select-composition-popup-wrapper">
+						<CompositionSelect items={this.state.products} addItem={this.addItem} />
 					</div>
 					<div className="bm-btn" onClick={this.hideProductSelect}>Отмена</div>
 				</div>

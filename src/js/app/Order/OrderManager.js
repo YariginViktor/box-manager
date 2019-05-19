@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import axios from 'axios'
 import settings from '../../fw/settings'
+import CompositionList from '../CompositionList'
+import CompositionSelect from '../CompositionSelect'
 
 class OrderManager extends Component {
 
@@ -12,17 +14,30 @@ class OrderManager extends Component {
 			edit: this.props.store.getState().edit || false,
 			id: this.props.store.getState().id || false,
 			store: this.props.store,
-			order: false
+			order: {
+				boxes: [],
+				amount: 0
+			},
+			boxes: [],
+			showBoxSelect: false
 		}
 		this.onSubmit = this.onSubmit.bind(this)
 		this.getOrder = this.getOrder.bind(this)
 		this.formateDate = this.formateDate.bind(this)
+		this.getBoxes = this.getBoxes.bind(this)
+		this.showBoxSelect = this.showBoxSelect.bind(this)
+		this.hideBoxSelect = this.hideBoxSelect.bind(this)
+		this.addItem = this.addItem.bind(this)
+		this.updateAmount = this.updateAmount.bind(this)
+		this.upItemCount = this.upItemCount.bind(this)
+		this.downItemCount = this.downItemCount.bind(this)
 	}
 
 	componentDidMount(){
 		if(this.state.edit) {
 			this.getOrder()
 		}
+		this.getBoxes()
 	}
 
 	onSubmit(e){
@@ -31,9 +46,10 @@ class OrderManager extends Component {
 			axios.post(settings.server.URL + '/orders', {
 				title: e.target[0].value,
 				user: e.target[1].value,
-				boxes: [202],
 				phone: e.target[2].value,
-				date: e.target[3].value,
+				descr: e.target[3].value,
+				date: e.target[4].value,
+				boxes: this.state.order.boxes,
 				created: new Date().toString()
 			})
 			.then(response =>
@@ -53,9 +69,10 @@ class OrderManager extends Component {
 				id: this.state.id,
 				title: e.target[0].value,
 				user: e.target[1].value,
-				boxes: [202],
 				phone: e.target[2].value,
-				date: e.target[3].value,
+				descr: e.target[3].value,
+				date: e.target[4].value,
+				boxes: this.state.order.boxes,
 				created: new Date().toString()
 
 			})
@@ -81,6 +98,19 @@ class OrderManager extends Component {
 		}, 5000)
 	}
 
+	getBoxes(){
+		axios.get(settings.server.URL + '/boxes')
+		.then((response) =>{
+		    this.setState({
+		    	boxes: response.data
+		    })
+		    this.updateAmount()
+		})
+		.catch((error) =>
+		    console.log(error)
+		)
+	}
+
 	getOrder(){
 		axios.get(settings.server.URL + '/orders/find', { params: { id: this.state.id } })
 		.then((response) =>{
@@ -102,17 +132,118 @@ class OrderManager extends Component {
 		return d.getFullYear() + '-' + lead0( d.getMonth() + 1 ) + '-' + lead0(d.getDate()) 
 	}
 
+	showBoxSelect(){
+		this.setState({
+			showBoxSelect: true
+		})
+	}
+
+	hideBoxSelect(){
+		this.setState({
+			showBoxSelect: false
+		})
+	}
+
+	updateAmount(){
+		let sum = 0
+		this.state.order.boxes.forEach(item => {
+			sum += parseInt(item.data.price) * item.value
+		})
+		this.state.order.amount = sum
+		this.setState({})
+	}
+
+	upItemCount(e){
+		this.updateItemCount(e, 'up')
+	}
+
+	downItemCount(e){
+		this.updateItemCount(e, 'down')
+	}
+
+	updateItemCount(obj, direction){
+		let prodId = obj.target.closest('.bm-form-composition-list-item').id
+		let curCount = parseInt(obj.target.closest('.bm-form-composition-list-item').getElementsByClassName('bm-form-composition-list-count')[0].innerHTML)
+		let newCount = direction === 'up' ? ++curCount : (curCount === 0 ? 0 : --curCount)
+		this.state.order.boxes.forEach(item =>{
+			if (item.data._id === prodId) {item.value = newCount}
+		})
+		this.updateAmount()
+	}
+
+	addItem(e){
+		axios.get(settings.server.URL + '/boxes/find', { params: { id: e.currentTarget.id } })
+		.then((response) =>{
+			let prod = {
+				data: response.data[0],
+				value: 1
+			}
+			this.state.order.boxes.push(prod)
+		    this.setState({
+				showBoxSelect: false
+			})
+			this.updateAmount()
+		})
+		.catch((error) =>
+		    console.log(error)
+		)
+	}
+
 	render(){
 		return(
 			<form onSubmit={this.onSubmit} className="bm-form">
 				<h1>{ this.state.edit ? 'Редактирование заказа' : 'Новый заказ'}</h1>
-				<div><span>Название заказа</span><input type="text" name="title" placeholder="" defaultValue={this.state.edit ? this.state.order.title : '' }/></div>
-				<div><span>Имя заказчика</span><input type="text" name="User" placeholder="" defaultValue={this.state.edit ? this.state.order.user : '' }/></div>
-				<div><span>Телефон заказчика</span><input type="text" name="phone" placeholder="8 (999) 999 99 99" defaultValue={this.state.edit ? this.state.order.phone : '' }/></div>
-				<div><span>Когда нужно</span><input type="date" name="date" placeholder="" defaultValue={this.state.edit ? this.state.order.date : '' }/></div>
+				<div className="bm-form-item">
+					<div className="bm-form-item-title">Название заказа</div>
+					<div className="bm-form-item-data">
+						<input type="text" name="title" placeholder="" defaultValue={this.state.edit ? this.state.order.title : '' }/>
+					</div>
+				</div>
+				<div className="bm-form-item">
+					<div className="bm-form-item-title">Имя заказчика</div>
+					<div className="bm-form-item-data">
+						<input type="text" name="User" placeholder="" defaultValue={this.state.edit ? this.state.order.user : '' }/>
+					</div>
+				</div>
+				<div className="bm-form-item">
+					<div className="bm-form-item-title">Телефон заказчика</div>
+					<div className="bm-form-item-data">
+						<input type="text" name="phone" placeholder="8 (999) 999 99 99" defaultValue={this.state.edit ? this.state.order.phone : '' }/>
+					</div>
+				</div>
+				<div className="bm-form-item">
+					<div className="bm-form-item-title">Комментарий к заказу</div>
+					<div className="bm-form-item-data">
+						<input type="text" name="User" placeholder="" defaultValue={this.state.edit ? this.state.order.descr : '' }/>
+					</div>
+				</div>
+				<div className="bm-form-item">
+					<div className="bm-form-item-title">Когда нужно</div>
+					<div className="bm-form-item-data">
+						<input type="date" name="date" placeholder="" defaultValue={this.state.edit ? this.state.order.date : '' }/>
+					</div>
+				</div>
+				<div className="bm-form-item">
+					<div className="bm-form-item-title">Состав</div>
+					<div className="bm-form-item-data">
+						<div className="bm-form-composition-list">
+							<div className="bm-form-composition-list-amount">Итог: {this.state.order.amount} p.</div>
+							<CompositionList items={this.state.order.boxes} upItemCount={this.upItemCount} downItemCount={this.downItemCount} />
+							<div>
+								<div className="bm-btn" onClick={this.showBoxSelect}>Добавить</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<button>
 					{this.state.edit ? 'Сохранить' : 'Создать заказ'}
 				</button>
+				<div className="bm-form-select-composition-popup" style={{display: this.state.showBoxSelect ? 'block' : 'none'}}>
+					<div className="bm-form-select-composition-popup-wrapper">
+						<CompositionSelect items={this.state.boxes} addItem={this.addItem} />
+					</div>
+					<div className="bm-btn" onClick={this.hideProductSelect}>Отмена</div>
+				</div>
 				<div className="bm-form-status">
 					{ this.state.wait ? '' : (this.state.error ? 'При обработке запроса возникла ошибка' : 'Заказ успешно сохранен')}
 				</div>

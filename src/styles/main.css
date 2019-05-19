@@ -44,6 +44,9 @@ h1{
 .bm-list-products li{
     padding: 10px 30px 30px 110px;
 }
+.bm-list-boxes span{
+    margin-right: 10px;
+}
 .bm-list-ico{
     background-size: contain;
     background-position: center;
@@ -83,18 +86,24 @@ h1{
 .bm-form-item-data input{
 	width: 100%;
 }
-.bm-form-product-list{
+.bm-form-composition-list{
     border: 1px solid #a7a7a7;
     padding: 10px;
 }
-.bm-form-product-list ol{
+.bm-form-composition-list ol{
 	padding-left: 30px;
 }
-.bm-form-product-list-item{
+.bm-form-composition-list-item{
 	position: relative;
 	padding-right: 65px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    border-bottom: 1px solid #e7e7e7;
 }
-.bm-form-product-list-counter{
+.bm-form-composition-list-price{
+    font-size: 12px;
+}
+.bm-form-composition-list-counter{
     width: 60px;
     height: 20px;
     position: absolute;
@@ -104,7 +113,7 @@ h1{
     font-size: 0;
     text-align: center;
 }
-.bm-form-product-list-counter div{
+.bm-form-composition-list-counter div{
 	display: inline-block;
     vertical-align: top;
     width: 20px;
@@ -113,7 +122,7 @@ h1{
     font-size: 14px;
     font-weight: bold;
 }
-.bm-form-product-list-edit{
+.bm-form-composition-list-edit{
 	background: #ef2314;
 	color: #fff;
 	cursor: pointer;
@@ -197,7 +206,7 @@ h1{
 	font-size: 14px;
 	font-weight: bold;
 }
-.bm-form-select-product-popup{
+.bm-form-select-composition-popup{
     position: absolute;
     top: 50px;
     left: 50%;
@@ -209,31 +218,31 @@ h1{
     box-sizing: border-box;
     width: 320px;
 }
-.bm-form-select-product-popup-wrapper{
+.bm-form-select-composition-popup-wrapper{
 	margin-bottom: 15px;
 	max-height: 400px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
-.bm-form-select-product-popup-wrapper ul{
+.bm-form-select-composition-popup-wrapper ul{
 	padding: 0;
 	margin: 0;
 }
-.bm-form-select-product-popup-wrapper li{
+.bm-form-select-composition-popup-wrapper li{
 	margin-bottom: 2px;
 }
-.bm-form-select-product-list-item{
+.bm-form-select-composition-list-item{
 	padding: 5px 5px 5px 50px;
 	position: relative;
 	font-size: 14px;
     border: 1px solid #e7e7e7;
 }
-.bm-form-select-product-list-item .bm-btn{
+.bm-form-select-composition-list-item .bm-btn{
 	float: right;
 	font-size: 10px;
 	padding: 2px 5px;
 }
-.bm-form-select-product-list-ico{
+.bm-form-select-composition-list-ico{
 	position: absolute;
     top: 5px;
     left: 5px;
@@ -243,7 +252,7 @@ h1{
 	background-size: contain;
 	background-repeat: no-repeat;
 }
-.bm-form-select-product-list-price{
+.bm-form-select-composition-list-price{
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 1px
